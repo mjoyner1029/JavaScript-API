@@ -1,46 +1,82 @@
-let countdownInterval;
-let notificationInterval;
+document.addEventListener('DOMContentLoaded', () => {
+    let countdownInterval;
+    let notificationInterval;
 
-function startCountdown(duration) {
-    const endTime = Date.now() + duration * 1000;
+    // Function to update the timer display
+    function updateTimerDisplay(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        document.getElementById('timerDisplay').textContent =
+            `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
 
-    function updateDisplay() {
-        const remainingTime = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-        document.getElementById('timerDisplay').textContent = `Time remaining: ${remainingTime}s`;
+    // Function to start the countdown timer
+    function startCountdownTimer(duration) {
+        let remainingTime = duration;
+        updateTimerDisplay(remainingTime);
 
-        if (remainingTime <= 0) {
+        if (countdownInterval) {
             clearInterval(countdownInterval);
-            displayNotification('Timer has expired!');
         }
+
+        countdownInterval = setInterval(() => {
+            remainingTime--;
+            updateTimerDisplay(remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('timerDisplay').textContent = 'Time\'s up!';
+                // Optional: Trigger notification when the timer ends
+                alert('Timer has ended!');
+            }
+        }, 1000);
     }
 
-    countdownInterval = setInterval(updateDisplay, 1000);
-    updateDisplay();
-}
+    // Event listener for start timer button
+    document.getElementById('startTimerButton').addEventListener('click', () => {
+        const inputSeconds = parseInt(document.getElementById('timerInput').value, 10);
+        if (!isNaN(inputSeconds) && inputSeconds > 0) {
+            startCountdownTimer(inputSeconds);
+        } else {
+            alert('Please enter a valid number of seconds.');
+        }
+    });
 
-function displayNotification(message) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.style.display = 'block';
-
-    // Hide notification after 5 seconds
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 5000);
-
-    // Repeat notification every 5 seconds
-    notificationInterval = setInterval(() => {
-        notification.textContent = 'Repeating notification.';
-        notification.style.display = 'block';
-    }, 5000);
-}
-
-document.getElementById('startTimer').addEventListener('click', () => {
-    const duration = parseInt(document.getElementById('duration').value, 10);
-    if (isNaN(duration) || duration <= 0) {
-        alert('Please enter a valid duration.');
-        return;
+    // Function to show notification after delay
+    function showNotificationAfterDelay(delay) {
+        setTimeout(() => {
+            document.getElementById('notificationDisplay').textContent = 'This is a delayed notification!';
+        }, delay);
     }
 
-    startCountdown(duration);
+    // Function to start repeating notifications
+    function startRepeatingNotifications(interval) {
+        if (notificationInterval) {
+            clearInterval(notificationInterval);
+        }
+
+        notificationInterval = setInterval(() => {
+            document.getElementById('notificationDisplay').textContent = 'Repeating notification!';
+        }, interval);
+    }
+
+    // Event listener for start notification button
+    document.getElementById('startNotificationButton').addEventListener('click', () => {
+        const delay = parseInt(document.getElementById('notificationDelayInput').value, 10);
+        if (!isNaN(delay) && delay > 0) {
+            showNotificationAfterDelay(delay);
+            startRepeatingNotifications(delay);
+        } else {
+            alert('Please enter a valid delay in milliseconds.');
+        }
+    });
+
+    // Event listener for stop notification button
+    document.getElementById('stopNotificationButton').addEventListener('click', () => {
+        if (notificationInterval) {
+            clearInterval(notificationInterval);
+            notificationInterval = null;
+            document.getElementById('notificationDisplay').textContent = '';
+        }
+    });
 });

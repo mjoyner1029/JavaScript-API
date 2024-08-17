@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
+    <title>Countdown Timer and Notifications</title>
     <link rel="stylesheet" href="css/styles2.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Countdown Timer</h1>
-            <label for="duration">Enter duration (seconds):</label>
-            <input type="number" id="duration" min="1">
-            <button id="startTimer">Start Timer</button>
+            <h1>Countdown Timer & Notifications</h1>
         </header>
-        <section>
-            <div id="timerDisplay">Time remaining: 0s</div>
-            <div id="notification"></div>
-        </section>
+        
+        <div class="timer-section">
+            <label for="timerInput">Set Timer (in seconds):</label>
+            <input type="number" id="timerInput" placeholder="Enter seconds">
+            <button id="startTimerButton">Start Timer</button>
+            <div id="timerDisplay">00:00</div>
+        </div>
+
+        <div class="notification-section">
+            <label for="notificationDelayInput">Notification Delay (in milliseconds):</label>
+            <input type="number" id="notificationDelayInput" placeholder="Enter milliseconds">
+            <button id="startNotificationButton">Start Notification</button>
+            <button id="stopNotificationButton">Stop Notifications</button>
+            <div id="notificationDisplay"></div>
+        </div>
     </div>
     <script src="js/timer.js"></script>
 </body>
