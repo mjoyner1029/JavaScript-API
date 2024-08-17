@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('https://m.media-amazon.com/images/I/91uDfBjwfFL.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #e62429; /* Marvel red */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e62429; /* Marvel red */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #a91d1a; /* Darker Marvel red */
+}
+
+#character-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.character {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 220px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+}
+
+.character-thumbnail img {
+    width: 100%;
+    height: auto;
+}
+
+.character-info {
+    padding: 10px;
+}
+
+.character-info h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.character-info p {
+    font-size: 0.9em;
+}
